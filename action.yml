@@ -1,11 +1,31 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'pr-update'
+description: 'A basic GitHub Action to create and update PullRequests from a source to a target branch'
+author: 'k3rnel-pan1c'
+branding:
+  icon: 'git-pull-request'
+  color: 'green'
 inputs:
-  milliseconds: # change this
+  token:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'The GitHub Token to use by this Action'
+  pr_title:
+    required: true
+    description: 'The title of the PR that should be created/updated'
+  pr_source:
+    required: true
+    description: 'The target branch name the PR should have'
+  pr_target:
+    required: false
+    description: 'The target branch name the PR should have'
+  pr_body:
+    required: false
+    description: 'The body of the PR to create'
+  pr_labels:
+    required: false
+    description: 'A comma separated list of labels to add to the PR'
+  pr_assignees:
+    required: false
+    description: 'A comma separated list of assignees to add to the PR'
 runs:
   using: 'node12'
   main: 'dist/index.js'

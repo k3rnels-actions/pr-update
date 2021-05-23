@@ -1,0 +1,55 @@
+[[pr-update]]
+= PR-Update
+:toc: macro
+:toc-title:
+
+image:https://img.shields.io/github/workflow/status/k3rnels-actions/pr-update/build-test.svg?label=build-test[GitHub Workflow Status, link="https://github.com/k3rnels-actions/pr-update/actions/workflows/test.yml"]
+image:https://img.shields.io/codefactor/grade/github/k3rnels-actions/pr-update.svg[CodeFactor, link="https://www.codefactor.io/repository/github/k3rnels-actions/pr-update"]
+image:https://img.shields.io/maintenance/yes/2021.svg[Maintenance status, link="https://github.com/k3rnels-actions/pr-update"]
+image:https://img.shields.io/github/license/k3rnels-actions/pr-update.svg[License, link="https://github.com/k3rnels-actions/pr-update/blob/main/LICENSE"]
+image:https://img.shields.io/github/v/release/k3rnels-actions/pr-update.svg[GitHub release (latest by date), link="https://github.com/k3rnels-actions/pr-update/releases"]
+
+[#introduction]
+== Introduction
+
+NOTE: This Action took inspiration of several other PR creating and updating Actions, however none of them seemed to be doing what I needed, so this exists now.
+
+[#action-io]
+== Action I/O
+
+=== Action Inputs
+
+
+
+=== Action Outputs
+
+
+
+[#usage]
+== Usage
+
+.create-or-update-pr.yml
+[source,yaml]
+----
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      # ... TODO
+----
+
+[#licence]
+== Licence
+
+image::https://www.gnu.org/graphics/gplv3-or-later.svg[link="https://opensource.org/licenses/GPL-3.0"]
+
+Just if the badge from `shields.io` and the link:LICENSE[] file do not make it obvious enough, this project is licenced under the link:https://opensource.org/licenses/GPL-3.0[GPLv3] or later.
+

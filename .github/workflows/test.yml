@@ -1,5 +1,5 @@
 name: 'build-test'
-on: # rebuild any PRs and main branch changes
+on:
   pull_request:
   push:
     branches:
@@ -7,18 +7,22 @@ on: # rebuild any PRs and main branch changes
       - 'releases/*'
 
 jobs:
-  build: # make sure build/ci work properly
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          npm install
-      - run: |
-          npm run all
+      - run: npm install
+      - run: npm run all
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   test: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: echo "DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
       - uses: ./
         with:
-          milliseconds: 1000
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pr_title: Test PR
+          pr_source: test/pr
+          pr_body: ${{ env.DATE }}
