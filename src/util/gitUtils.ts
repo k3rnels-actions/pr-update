@@ -1,6 +1,4 @@
-import * as core from '@actions/core'
 import * as github from '@actions/github'
-import {exec} from '@actions/exec'
 
 import {Repo, Octokit} from '../model/types'
 import {execWithCode} from './execUtil'

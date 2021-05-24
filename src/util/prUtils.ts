@@ -44,11 +44,11 @@ export class PrUtils {
       })
     ).data
 
-    if (labels) {
+    if (labels && labels.length > 0) {
       await this.addPrLabels(pr.number, labels)
     }
 
-    if (assignees) {
+    if (assignees && assignees.length > 0) {
       await this.addPrAssignees(pr.number, assignees)
     }
 
@@ -72,11 +72,11 @@ export class PrUtils {
       })
     ).data
 
-    if (labels) {
+    if (labels && labels.length > 0) {
       await this.addPrLabels(pr.number, labels)
     }
 
-    if (assignees) {
+    if (assignees && assignees.length > 0) {
       await this.addPrAssignees(pr.number, assignees)
     }
 

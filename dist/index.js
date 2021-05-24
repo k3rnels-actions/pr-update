@@ -282,10 +282,10 @@ class PrUtils {
         return __awaiter(this, void 0, void 0, function* () {
             core.debug(`Creating PR "${title}"`);
             const pr = (yield this.octokit.pulls.create(Object.assign(Object.assign({}, github.context.repo), { title, head: srcBranch, base: tgtBranch, body }))).data;
-            if (labels) {
+            if (labels && labels.length > 0) {
                 yield this.addPrLabels(pr.number, labels);
             }
-            if (assignees) {
+            if (assignees && assignees.length > 0) {
                 yield this.addPrAssignees(pr.number, assignees);
             }
             return pr;
@@ -296,10 +296,10 @@ class PrUtils {
             core.debug(`Updating PR "${title}"`);
             const pr = (yield this.octokit.pulls.update(Object.assign(Object.assign({}, github.context.repo), { pull_number: prNumber, title,
                 body }))).data;
-            if (labels) {
+            if (labels && labels.length > 0) {
                 yield this.addPrLabels(pr.number, labels);
             }
-            if (assignees) {
+            if (assignees && assignees.length > 0) {
                 yield this.addPrAssignees(pr.number, assignees);
             }
             return pr;
