@@ -38,6 +38,7 @@ async function run(): Promise<void> {
         input.prAssignees
       )
       core.info(`🎉 Pull Request updated: ${pull.html_url} (#${pull.number})`)
+      core.setOutput('pr_nr', pull.number)
     } else {
       core.info('➕ Creating new PR')
       const pull = await pr.createPr(
@@ -49,6 +50,7 @@ async function run(): Promise<void> {
         input.prAssignees
       )
       core.info(`🎉 Pull Request created: ${pull.html_url} (#${pull.number})`)
+      core.setOutput('pr_nr', pull.number)
     }
     core.endGroup()
   } catch (error) {

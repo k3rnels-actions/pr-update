@@ -13,7 +13,7 @@ inputs:
     description: 'The title of the PR that should be created/updated'
   pr_source:
     required: true
-    description: 'The target branch name the PR should have'
+    description: 'The source branch name the PR should have'
   pr_target:
     required: false
     description: 'The target branch name the PR should have'
@@ -26,6 +26,9 @@ inputs:
   pr_assignees:
     required: false
     description: 'A comma separated list of assignees to add to the PR'
+outputs:
+  pr_nr:
+    description: 'The number of the created/updated PR'
 runs:
   using: 'node12'
   main: 'dist/index.js'
