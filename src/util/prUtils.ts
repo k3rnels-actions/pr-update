@@ -13,7 +13,7 @@ export class PrUtils {
   async getPrNumber(tgtBranch: string, srcBranch: string): Promise<number | undefined> {
     core.debug(`Searching PR with src: "${srcBranch}" and tgt: "${tgtBranch}"`)
     const prs = (
-      await this.octokit.pulls.list({
+      await this.octokit.rest.pulls.list({
         ...github.context.repo,
         state: 'open',
         base: tgtBranch,
@@ -35,7 +35,7 @@ export class PrUtils {
   ): Promise<PullRequest> {
     core.debug(`Creating PR "${title}"`)
     const pr = (
-      await this.octokit.pulls.create({
+      await this.octokit.rest.pulls.create({
         ...github.context.repo,
         title,
         head: srcBranch,
@@ -64,7 +64,7 @@ export class PrUtils {
   ): Promise<PullRequest> {
     core.debug(`Updating PR "${title}"`)
     const pr = (
-      await this.octokit.pulls.update({
+      await this.octokit.rest.pulls.update({
         ...github.context.repo,
         pull_number: prNumber,
         title,
@@ -85,7 +85,7 @@ export class PrUtils {
 
   private async addPrLabels(prNumber: number, labels: string[]): Promise<void> {
     core.debug(`Adding ${labels.length} Labels to PR: ${labels.toString()}`)
-    await this.octokit.issues.addLabels({
+    await this.octokit.rest.issues.addLabels({
       ...github.context.repo,
       issue_number: prNumber,
       labels
@@ -94,7 +94,7 @@ export class PrUtils {
 
   private async addPrAssignees(prNumber: number, assignees: string[]): Promise<void> {
     core.debug(`Adding ${assignees.length} Assignees to PR: ${assignees.toString()}`)
-    await this.octokit.issues.addAssignees({
+    await this.octokit.rest.issues.addAssignees({
       ...github.context.repo,
       issue_number: prNumber,
       assignees
