@@ -18,7 +18,7 @@ export async function getTargetBranch(inputBranch: string, octokit: Octokit): Pr
 
 async function getDefaultBranch(octokit: Octokit): Promise<string> {
   const repo = (
-    await octokit.repos.get({
+    await octokit.rest.repos.get({
       ...github.context.repo
     })
   ).data as Repo
