@@ -12,6 +12,8 @@ image:https://img.shields.io/github/v/release/k3rnels-actions/pr-update.svg[GitH
 [#introduction]
 == Introduction
 
+This is a very basic GitHub Action to simply create a GitHub Pull Request form an existing branch of the given repository to another one. This Action *_does not_* commit any of your changes, nor does it create any of the branches it uses. All this action does is create a Pull Request, nothing more.
+
 NOTE: This Action took inspiration of several other PR creating and updating Actions, however none of them seemed to be doing what I needed, so this exists now.
 
 [#action-io]
@@ -19,11 +21,50 @@ NOTE: This Action took inspiration of several other PR creating and updating Act
 
 === Action Inputs
 
+[cols="1,^1,4"]
+|===
+|Input |Required |Description
 
+|`token`
+|`true`
+|The GitHub Token to use by this Action (e.g. `${{ secrets.GITHUB_TOKEN }}`)
+
+|`pr_title`
+|`true`
+|The title of the PR that should be created/updated (e.g. `My awesome PR`)
+
+|`pr_source`
+|`true`
+|The source branch name the PR should have (this branch needs to already exist in the repository)
+
+|`pr_target`
+|`false`
+|The target branch name the PR should have (defaults to the default branch of the repo)
+
+|`pr_body`
+|`false`
+|The body of the PR to create (e.g. `My very useful PR description`)
+
+|`pr_labels`
+|`false`
+|A comma separated list of labels to add to the PR (e.g. `label0,label1`)
+
+|`pr_assignees`
+|`false`
+|A comma separated list of assignees to add to the PR (e.g. `octocat`)
+|===
+
+IMPORTANT: The `token` used by this action needs to be able to read the GitHub API and access information about the repository you intend to use this Action in as well as be able to create Pull Requests via the GitHub API in that repository. The default `${{ secrets.GITHUB_TOKEN }}` is enough for this purpose.
 
 === Action Outputs
 
+[cols="1,2"]
+|===
+|Output |Description
 
+|`pr_nr`
+|The number of the created/updated PR
+|===
 
 [#usage]
 == Usage
@@ -32,10 +73,7 @@ NOTE: This Action took inspiration of several other PR creating and updating Act
 [source,yaml]
 ----
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -43,7 +81,27 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-      # ... TODO
+      - name: Do some changes to the repo
+        run: ...
+      - name: Run Git CCommands
+        run: |
+          git checkout -b branch_name
+          git commit -am 'add som stuff'
+          git push origin
+      - name: Create-Update PR
+        uses: k3rnels-actions/pr-update@v1
+        id: pr_update
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pr_title: Awsome PR
+          pr_source: branch_name
+          pr_body: |
+            ### Description
+            Yes you can use Markdown here too
+            ### Changes
+            * new stuff
+      - name: Upload Artifact
+        run: echo "${{ steps.pr_update.outputs.pr_nr }}"
 ----
 
 [#licence]
