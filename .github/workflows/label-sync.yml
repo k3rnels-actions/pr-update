@@ -1,0 +1,15 @@
+name: Sync Label Config
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 10 1 * *'
+
+jobs:
+  sync-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: EndBug/label-sync@v1
+        with:
+          source-repo: k3rnels-actions/.github
+          token: ${{ secrets.GITHUB_TOKEN }}
