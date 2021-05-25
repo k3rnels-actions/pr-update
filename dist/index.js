@@ -60,7 +60,7 @@ function run() {
             core.info('🔍 Checking if there is a open PR for the source to target branch');
             const pullRequestNr = yield pr.getPrNumber(tgtBranch, input.prSource);
             core.endGroup();
-            core.startGroup('RP');
+            core.startGroup('PR');
             if (pullRequestNr) {
                 core.info('♻️ Update existing PR');
                 const pull = yield pr.updatePr(pullRequestNr, input.prTitle, input.prBody, input.prLabels, input.prAssignees);

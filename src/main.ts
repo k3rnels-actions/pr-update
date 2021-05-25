@@ -27,7 +27,7 @@ async function run(): Promise<void> {
     const pullRequestNr = await pr.getPrNumber(tgtBranch, input.prSource)
     core.endGroup()
 
-    core.startGroup('RP')
+    core.startGroup('PR')
     if (pullRequestNr) {
       core.info('♻️ Update existing PR')
       const pull = await pr.updatePr(
