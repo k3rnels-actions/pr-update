@@ -105,6 +105,11 @@ jobs:
         run: echo "${{ steps.pr_update.outputs.pr_nr }}"
 ----
 
+[#contribute]
+== Contribute
+
+All kinds of contributions are more than welcome! However, if you plan bigger changes please open an issue first to discuss your proposed changes :wink:
+
 [#licence]
 == Licence
 
