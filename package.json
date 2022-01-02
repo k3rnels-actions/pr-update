@@ -5,6 +5,7 @@
   "description": "A basic GitHub Action to create and update PullRequests from a source to a target branch",
   "main": "lib/main.js",
   "scripts": {
+    "prepare": "husky install",
     "build": "tsc",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
@@ -41,6 +42,7 @@
     "js-yaml": "^4.1.0",
     "prettier": "2.5.1",
     "ts-jest": "^27.1.2",
-    "typescript": "^4.5.4"
+    "typescript": "^4.5.4",
+    "husky": "^7.0.0"
   }
 }
