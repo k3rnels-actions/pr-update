@@ -11,17 +11,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: npm install
-      - run: npm run all
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set Node
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: 16.x
+      - name: Install dependencies
+        run: npm install
+      - name: Run all NPM targets
+        run: npm run all
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: echo "DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
-      - uses: ./
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set enviroment variables
+        run: echo "DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
+      - name: Execute test run
+        uses: ./
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           pr_title: Test PR

@@ -30,5 +30,5 @@ outputs:
   pr_nr:
     description: 'The number of the created/updated PR'
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'
