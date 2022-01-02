@@ -1,0 +1,18 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "matchManagers": ["github-actions"],
+      "addLabels": ["github_actions"]
+    },
+    {
+      "matchManagers": ["npm"],
+      "addLabels": ["npm"]
+    }
+  ],
+  "timezone": "Etc/UTC",
+  "schedule": ["before 2am"]
+}
