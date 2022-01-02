@@ -26,23 +26,23 @@
   "author": "k3rnel-pan1c",
   "license": "GPLv3",
   "dependencies": {
-    "@actions/core": "^1.6.0",
-    "@actions/exec": "^1.1.0",
-    "@actions/github": "^5.0.0"
+    "@actions/core": "1.6.0",
+    "@actions/exec": "1.1.0",
+    "@actions/github": "5.0.0"
   },
   "devDependencies": {
-    "@types/node": "^16.11.7",
-    "@typescript-eslint/eslint-plugin": "^5.8.1",
-    "@typescript-eslint/parser": "^5.8.1",
-    "@vercel/ncc": "^0.33.1",
-    "eslint": "^8.6.0",
+    "@types/node": "16.11.17",
+    "@typescript-eslint/eslint-plugin": "5.8.1",
+    "@typescript-eslint/parser": "5.8.1",
+    "@vercel/ncc": "0.33.1",
+    "eslint": "8.6.0",
     "eslint-plugin-github": "4.3.5",
-    "eslint-plugin-jest": "^25.3.4",
-    "jest": "^27.4.5",
-    "js-yaml": "^4.1.0",
+    "eslint-plugin-jest": "25.3.4",
+    "jest": "27.4.5",
+    "js-yaml": "4.1.0",
     "prettier": "2.5.1",
-    "ts-jest": "^27.1.2",
-    "typescript": "^4.5.4",
-    "husky": "^7.0.0"
+    "ts-jest": "27.1.2",
+    "typescript": "4.5.4",
+    "husky": "7.0.4"
   }
 }
