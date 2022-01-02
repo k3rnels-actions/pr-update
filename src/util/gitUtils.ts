@@ -1,7 +1,7 @@
 import * as github from '@actions/github'
 
-import {Repo, Octokit} from '../model/types'
-import {execWithCode} from './execUtil'
+import {Octokit, Repo} from '../model/types'
+import {execWithCode} from './execUtils'
 
 export async function branchExists(branchName: string): Promise<boolean> {
   const retCode = await execWithCode(`git ls-remote --exit-code --heads origin "${branchName}"`)

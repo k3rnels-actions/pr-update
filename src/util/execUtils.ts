@@ -1,4 +1,4 @@
-import {exec, ExecOptions} from '@actions/exec'
+import {ExecOptions, exec} from '@actions/exec'
 
 export async function execWithCode(
   commandLine: string,
