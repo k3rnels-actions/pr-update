@@ -2,7 +2,7 @@
   "extends": [
     "config:base"
   ],
-  "labels": ["dependencies"],
+  "addLabels": ["dependencies"],
   "packageRules": [
     {
       "matchManagers": ["github-actions"],
@@ -11,8 +11,21 @@
     {
       "matchManagers": ["npm"],
       "addLabels": ["npm"]
+    },
+    {
+      "matchDepTypes": ["devDependencies", "build-dependencies"],
+      "groupName": "dev-dependencies"
+    },
+    {
+      "matchDepTypes": ["dependencies"],
+      "groupName": "dependencies"
+    },
+    {
+      "matchDepTypes": ["action"],
+      "groupName": "ci-dependencies"
     }
   ],
+  "rangeStrategy": "pin",
   "timezone": "Etc/UTC",
   "schedule": ["before 2am"]
 }
