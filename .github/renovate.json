@@ -26,6 +26,5 @@
     }
   ],
   "rangeStrategy": "pin",
-  "timezone": "Etc/UTC",
-  "schedule": ["before 2am"]
+  "timezone": "Etc/UTC"
 }
