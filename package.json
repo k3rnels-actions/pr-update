@@ -1,6 +1,6 @@
 {
   "name": "pr-update",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "private": true,
   "description": "A basic GitHub Action to create and update PullRequests from a source to a target branch",
   "main": "lib/main.js",
