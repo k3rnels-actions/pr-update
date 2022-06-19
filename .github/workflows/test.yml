@@ -24,12 +24,23 @@ jobs:
         run: npm run all
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          retention-days: 15
+          name: new-dist
+          path: dist
+
   test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3.0.2
-      - name: Set enviroment variables
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3.0.0
+        with:
+          name: new-dist
+      - name: Set environment variables
         run: echo "DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
       - name: Execute test run
         uses: ./
