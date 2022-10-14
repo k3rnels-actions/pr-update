@@ -45,6 +45,10 @@ NOTE: This Action took inspiration of several other PR creating and updating Act
 |`false`
 |The body of the PR to create (e.g. `My very useful PR description`)
 
+|`pr_body_append_pr_diffs`
+|`false`
+|When enabled appends links of associated PRs to the body of the PR to create (e.g. `- [My new feature](https://github.com/k3rnels-actions/pr-update/pulls/1)`)
+
 |`pr_labels`
 |`false`
 |A comma separated list of labels to add to the PR (e.g. `label0,label1`)
@@ -99,7 +103,9 @@ jobs:
             ### Description
             Yes you can use Markdown here too
             ### Changes
-            * new stuff
+            The following features have been added:\r\n
+          pr_body_append_pr_diffs: true
+
       - name: Upload Artifact
         run: echo "${{ steps.pr_update.outputs.pr_nr }}"
 ----
@@ -115,4 +121,3 @@ All kinds of contributions are more than welcome! However, if you plan bigger ch
 image::https://www.gnu.org/graphics/gplv3-or-later.svg[link="https://opensource.org/licenses/GPL-3.0"]
 
 Just if the badge from `shields.io` and the link:LICENSE[] file do not make it obvious enough, this project is licenced under the link:https://opensource.org/licenses/GPL-3.0[GPLv3] or later.
-

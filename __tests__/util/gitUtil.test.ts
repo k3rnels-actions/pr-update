@@ -2,6 +2,7 @@ import * as github from '@actions/github'
 import * as core from '@actions/core'
 import * as process from 'process'
 import * as git from '../../src/util/gitUtils'
+import { getToken } from '../helpers/token'
 
 describe('pr-update/gitUtil', () => {
 
@@ -16,6 +17,7 @@ describe('pr-update/gitUtil', () => {
 
   it('test branchExists present', async () => {
     const changes = await git.branchExists('main')
+    debugger;
     expect(changes).toBeTruthy()
   })
 
@@ -40,15 +42,4 @@ describe('pr-update/gitUtil', () => {
     const branchName = await git.getTargetBranch('', octokit)
     expect(branchName).toBe('main')
   })
-
-  function getToken(): string {
-    const token = process.env['GITHUB_TOKEN'] || ''
-    if (!token) {
-      core.warning(
-        'Skipping GitHub tests. Set $GITHUB_TOKEN to run REST client and GraphQL client tests'
-      )
-    }
-
-    return token
-  }
 })

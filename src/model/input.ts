@@ -11,6 +11,7 @@ export class Input {
   prSource: string
   prTarget: string
   prBody: string
+  prBodyAppendPrDiffs: boolean
   prLabels: string[]
   prAssignees: string[]
 
@@ -20,6 +21,7 @@ export class Input {
     this.prSource = core.getInput('pr_source', {required: true})
     this.prTarget = core.getInput('pr_target')
     this.prBody = core.getInput('pr_body')
+    this.prBodyAppendPrDiffs = core.getInput('pr_body_append_pr_diffs') == 'true' // getBooleanInput() raises TypeError!
     this.prLabels = parsInputToArray('pr_labels')
     this.prAssignees = parsInputToArray('pr_assignees')
 

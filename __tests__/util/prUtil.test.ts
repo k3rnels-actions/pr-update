@@ -2,6 +2,7 @@ import * as github from '@actions/github'
 import * as core from '@actions/core'
 import * as process from 'process'
 import {PrUtils} from '../../src/util/prUtils'
+import { getToken } from '../helpers/token'
 
 const octokit = github.getOctokit(getToken())
 const pr = new PrUtils(octokit)
@@ -21,14 +22,3 @@ describe('pr-update/prUtil', () => {
     expect(prNr).toBe(6)
   })
 })
-
-function getToken(): string {
-  const token = process.env['GITHUB_TOKEN'] || ''
-  if (!token) {
-    core.warning(
-      'Skipping GitHub tests. Set $GITHUB_TOKEN to run REST client and GraphQL client tests'
-    )
-  }
-
-  return token
-}
