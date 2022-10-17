@@ -3,24 +3,24 @@ import * as github from '@actions/github'
 
 import {Octokit, Commit} from '../model/types'
 
-export class PrDiffUtils {
+export class prBodyUtils {
   private octokit: Octokit
 
   constructor(octokit: Octokit) {
     this.octokit = octokit
   }
 
-  async enhancedBody(prNumber: number, body?: string): Promise<string> {
+  async withLinks(prNumber: number, body?: string): Promise<string> {
     core.info(`Start retrieving links of PRs associated to PR: ${prNumber.toString()}`)
-    let enhancedBody: string = body ?? ''
+    let bodyWithLinks: string = body ?? ''
     const commitShas = await this.fetchCommitShas(prNumber)
     const titleLinkHash = await this.fetchTitleAndLinks(commitShas)
 
     for (const [title, link] of titleLinkHash) {
-      enhancedBody += `\n\r- [${title}](${link})`
+      bodyWithLinks += `\n\r- [${title}](${link})`
     }
 
-    return enhancedBody
+    return bodyWithLinks
   }
 
   private async fetchCommitShas(prNumber: number): Promise<string[]> {

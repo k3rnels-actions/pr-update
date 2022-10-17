@@ -45,7 +45,7 @@ NOTE: This Action took inspiration of several other PR creating and updating Act
 |`false`
 |The body of the PR to create (e.g. `My very useful PR description`)
 
-|`pr_body_append_pr_diffs`
+|`pr_body_with_links`
 |`false`
 |When enabled appends links of associated PRs to the body of the PR to create (e.g. `- [My new feature](https://github.com/k3rnels-actions/pr-update/pulls/1)`)
 
@@ -104,7 +104,7 @@ jobs:
             Yes you can use Markdown here too
             ### Changes
             The following features have been added:\r\n
-          pr_body_append_pr_diffs: true
+          pr_body_with_links: true
 
       - name: Upload Artifact
         run: echo "${{ steps.pr_update.outputs.pr_nr }}"
