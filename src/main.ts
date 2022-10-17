@@ -3,7 +3,7 @@ import * as github from '@actions/github'
 
 import {Input} from './model/input'
 import {PrUtils} from './util/prUtils'
-import {PrBodyUtils} from './util/prBodyUtils'
+import {BodyUtils} from './util/bodyUtils'
 import * as git from './util/gitUtils'
 
 async function run(): Promise<void> {
@@ -11,7 +11,7 @@ async function run(): Promise<void> {
     const input = new Input()
     const octokit = github.getOctokit(input.token)
     const pr = new PrUtils(octokit)
-    const prBodyUtils = new PrBodyUtils(octokit)
+    const bodyUtils = new BodyUtils(octokit)
     const tgtBranch = await git.getTargetBranch(input.prTarget, octokit)
 
     core.startGroup('Checks')
@@ -33,8 +33,8 @@ async function run(): Promise<void> {
     if (pullRequestNr) {
       core.info('♻️ Update existing PR')
       const body =
-        input.prBodyWithLinks == true
-          ? await prBodyUtils.withLinks(pullRequestNr, input.prBody)
+        input.prBodyWithLinks === true
+          ? await bodyUtils.withLinks(pullRequestNr, input.prBody)
           : input.prBody
       const pull = await pr.updatePr(
         pullRequestNr,
@@ -57,8 +57,8 @@ async function run(): Promise<void> {
       )
       const prNumber = pull.number
       core.info(`🎉 Pull Request created: ${pull.html_url} (#${prNumber})`)
-      if (input.prBodyWithLinks == true) {
-        const body = await prBodyUtils.withLinks(prNumber, input.prBody)
+      if (input.prBodyWithLinks === true) {
+        const body = await bodyUtils.withLinks(prNumber, input.prBody)
         await pr.updatePr(prNumber, input.prTitle, body, input.prLabels, input.prAssignees)
         core.info(`🎉 Pull Request updated: ${pull.html_url} (#${prNumber})`)
       }
