@@ -17,7 +17,6 @@ describe('pr-update/gitUtil', () => {
 
   it('test branchExists present', async () => {
     const changes = await git.branchExists('main')
-    debugger;
     expect(changes).toBeTruthy()
   })
 

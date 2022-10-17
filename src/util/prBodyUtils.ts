@@ -3,7 +3,7 @@ import * as github from '@actions/github'
 
 import {Octokit, Commit} from '../model/types'
 
-export class prBodyUtils {
+export class PrBodyUtils {
   private octokit: Octokit
 
   constructor(octokit: Octokit) {

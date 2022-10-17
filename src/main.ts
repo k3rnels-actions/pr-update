@@ -3,7 +3,7 @@ import * as github from '@actions/github'
 
 import {Input} from './model/input'
 import {PrUtils} from './util/prUtils'
-import {prBodyUtils} from './util/prBodyUtils'
+import {PrBodyUtils} from './util/prBodyUtils'
 import * as git from './util/gitUtils'
 
 async function run(): Promise<void> {
@@ -11,7 +11,7 @@ async function run(): Promise<void> {
     const input = new Input()
     const octokit = github.getOctokit(input.token)
     const pr = new PrUtils(octokit)
-    const prBodyUtils = new prBodyUtils(octokit)
+    const prBodyUtils = new PrBodyUtils(octokit)
     const tgtBranch = await git.getTargetBranch(input.prTarget, octokit)
 
     core.startGroup('Checks')

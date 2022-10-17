@@ -1,11 +1,11 @@
 import * as github from '@actions/github'
 import * as core from '@actions/core'
 import * as process from 'process'
-import { prBodyUtils } from '../../src/util/prBodyUtils'
+import { PrBodyUtils } from '../../src/util/prBodyUtils'
 import { getToken } from '../helpers/token'
 
 const octokit = github.getOctokit(getToken())
-const prBody = new prBodyUtils(octokit)
+const prBody = new PrBodyUtils(octokit)
 
 describe('pr-update/prBodyUtils', () => {
   beforeAll(async () => {
