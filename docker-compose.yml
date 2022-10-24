@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  dev:
+    env_file:
+      - .env.development
+    environment:
+      - SSH_AUTH_SOCK=${SSH_AUTH_SOCK}
+    build:
+      context: .
+      target: dev
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./:/home/node/app
+      - ${SSH_AUTH_SOCK}:${SSH_AUTH_SOCK}
+      # Prevents unwanted mounting of node_modules from HOST into docker container.
+      - notused:/home/node/app/node_modules
+
+  test:
+    env_file:
+      - .env.test
+    environment:
+      - SSH_AUTH_SOCK=${SSH_AUTH_SOCK}
+    build:
+      context: .
+      target: base
+    command: run test
+    volumes:
+      - ./:/home/node/app
+      - ${SSH_AUTH_SOCK}:${SSH_AUTH_SOCK}
+      # Prevents unwanted mounting of node_modules from HOST into docker container.
+      - notused:/home/node/app/node_modules
+
+volumes:
+  notused:
