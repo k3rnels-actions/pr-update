@@ -1,11 +1,10 @@
 name: 'build-test'
+
 on:
-  pull_request_target:
   push:
     branches:
       - main
-      - 'releases/*'
-  workflow_dispatch:
+  pull_request:
 
 jobs:
   build:
@@ -25,7 +24,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v3.1.1
         with:
           retention-days: 15
           name: new-dist
@@ -39,7 +38,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3.0.2
       - name: Download Artifacts
-        uses: actions/download-artifact@v3.0.0
+        uses: actions/download-artifact@v3.0.1
         with:
           name: new-dist
       - name: Set environment variables
@@ -51,3 +50,24 @@ jobs:
           pr_title: Test PR
           pr_source: test/pr
           pr_body: ${{ env.DATE }}
+
+  test-extended:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3.0.2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3.0.1
+        with:
+          name: new-dist
+      - name: Execute test run with body links
+        uses: ./
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pr_title: Test staging to main
+          pr_source: test/staging
+          pr_target: test/main
+          pr_body: "The following changes are going to be merged from staging to main:"
+          pr_body_with_links: true
