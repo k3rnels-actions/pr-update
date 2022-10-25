@@ -5,11 +5,6 @@ import * as git from '../../src/util/gitUtils'
 import { getToken } from '../helpers/token'
 
 describe('pr-update/gitUtil', () => {
-
-  beforeAll(async () => {
-    process.env['GITHUB_REPOSITORY'] = 'k3rnels-actions/pr-update'
-  })
-
   it('test branchExists missing', async () => {
     const changes = await git.branchExists('missing')
     expect(changes).toBeFalsy()
@@ -21,23 +16,13 @@ describe('pr-update/gitUtil', () => {
   })
 
   it('test getInputOrDefaultBranch input', async () => {
-    const token = getToken()
-    if (!token) {
-      return
-    }
-
-    const octokit = github.getOctokit(token)
-    const branchName = await git.getTargetBranch('master', octokit)
-    expect(branchName).toBe('master')
+    const octokit = github.getOctokit(getToken())
+    const branchName = await git.getTargetBranch('main', octokit)
+    expect(branchName).toBe('main')
   })
 
   it('test getInputOrDefaultBranch default', async () => {
-    const token = getToken()
-    if (!token) {
-      return
-    }
-
-    const octokit = github.getOctokit(token)
+    const octokit = github.getOctokit(getToken())
     const branchName = await git.getTargetBranch('', octokit)
     expect(branchName).toBe('main')
   })

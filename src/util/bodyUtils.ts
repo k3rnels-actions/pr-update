@@ -14,7 +14,7 @@ export class BodyUtils {
     core.info(`Start retrieving links of PRs associated to PR: ${prNumber.toString()}`)
     let bodyWithLinks: string = body ?? ''
     const commitShas = await this.fetchCommitShas(prNumber)
-    const titleLinkHash = await this.fetchTitleAndLinks(commitShas)
+    const titleLinkHash = await this.fetchTitleAndLinks(commitShas, prNumber)
 
     for (const [title, link] of titleLinkHash) {
       bodyWithLinks += `\n\r- [${title}](${link})`
@@ -34,7 +34,10 @@ export class BodyUtils {
     return resp.data.map((entry: Commit) => entry.sha)
   }
 
-  private async fetchTitleAndLinks(commitShas: string[]): Promise<Map<string, string>> {
+  private async fetchTitleAndLinks(
+    commitShas: string[],
+    prNumber: number
+  ): Promise<Map<string, string>> {
     core.debug(
       `Fetching associated pull request's title and links of commit shas: ${commitShas.toString()}`
     )
@@ -48,6 +51,9 @@ export class BodyUtils {
       })
 
       for (const entry of resp.data) {
+        if (entry.number === prNumber) {
+          continue
+        }
         titleWithLinks.set(entry.title, entry.html_url)
       }
     }
