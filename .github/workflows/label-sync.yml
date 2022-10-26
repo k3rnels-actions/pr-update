@@ -9,7 +9,7 @@ jobs:
   sync-labels:
     runs-on: ubuntu-latest
     steps:
-      - uses: EndBug/label-sync@v2.2.0
+      - uses: EndBug/label-sync@v2.3.0
         with:
           source-repo: k3rnels-actions/.github
           token: ${{ secrets.GITHUB_TOKEN }}
