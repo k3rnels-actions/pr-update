@@ -10,11 +10,13 @@ export class BodyUtils {
     this.octokit = octokit
   }
 
-  async withLinks(prNumber: number, body?: string): Promise<string> {
-    core.info(`Start retrieving links of PRs associated to PR: ${prNumber.toString()}`)
+  async withLinks(prSource: string, prTarget: string, body?: string): Promise<string> {
+    core.info(
+      `Start retrieving PR links for all diffs between head ${prSource} and base ${prTarget}`
+    )
     let bodyWithLinks: string = body ?? ''
-    const commitShas = await this.fetchCommitShas(prNumber)
-    const titleLinkHash = await this.fetchTitleAndLinks(commitShas, prNumber)
+    const commitShas = await this.fetchCommitShas(prSource, prTarget)
+    const titleLinkHash = await this.fetchTitleAndLinks(commitShas)
 
     for (const [title, link] of titleLinkHash) {
       bodyWithLinks += `\n\r- [${title}](${link})`
@@ -23,21 +25,19 @@ export class BodyUtils {
     return bodyWithLinks
   }
 
-  private async fetchCommitShas(prNumber: number): Promise<string[]> {
-    core.debug(`Fetching all associated commits of: ${prNumber.toString()}`)
+  private async fetchCommitShas(prSource: string, prTarget: string): Promise<string[]> {
+    core.debug(`Fetching all associated commits of ${prSource} and ${prTarget}`)
 
-    const resp = await this.octokit.rest.pulls.listCommits({
+    const resp = await this.octokit.rest.repos.compareCommits({
       ...github.context.repo,
-      pull_number: prNumber
+      head: prSource,
+      base: prTarget
     })
 
-    return resp.data.map((entry: Commit) => entry.sha)
+    return resp.data.commits.map((entry: Commit) => entry.sha)
   }
 
-  private async fetchTitleAndLinks(
-    commitShas: string[],
-    prNumber: number
-  ): Promise<Map<string, string>> {
+  private async fetchTitleAndLinks(commitShas: string[]): Promise<Map<string, string>> {
     core.debug(
       `Fetching associated pull request's title and links of commit shas: ${commitShas.toString()}`
     )
@@ -51,7 +51,7 @@ export class BodyUtils {
       })
 
       for (const entry of resp.data) {
-        if (entry.number === prNumber) {
+        if (entry.state === 'open') {
           continue
         }
         titleWithLinks.set(entry.title, entry.html_url)

@@ -30,12 +30,12 @@ async function run(): Promise<void> {
     core.endGroup()
 
     core.startGroup('PR')
+    const body =
+      input.prBodyWithLinks === true
+        ? await bodyUtils.withLinks(input.prSource, input.prTarget, input.prBody)
+        : input.prBody
     if (pullRequestNr) {
       core.info('♻️ Update existing PR')
-      const body =
-        input.prBodyWithLinks === true
-          ? await bodyUtils.withLinks(pullRequestNr, input.prBody)
-          : input.prBody
       const pull = await pr.updatePr(
         pullRequestNr,
         input.prTitle,
@@ -51,18 +51,12 @@ async function run(): Promise<void> {
         tgtBranch,
         input.prSource,
         input.prTitle,
-        input.prBody,
+        body,
         input.prLabels,
         input.prAssignees
       )
       const prNumber = pull.number
       core.info(`🎉 Pull Request created: ${pull.html_url} (#${prNumber})`)
-      if (input.prBodyWithLinks === true) {
-        const body = await bodyUtils.withLinks(prNumber, input.prBody)
-        await pr.updatePr(prNumber, input.prTitle, body, input.prLabels, input.prAssignees)
-        core.info(`🎉 Pull Request updated: ${pull.html_url} (#${prNumber})`)
-      }
-
       core.setOutput('pr_nr', prNumber)
     }
     core.endGroup()

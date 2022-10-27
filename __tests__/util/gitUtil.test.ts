@@ -5,6 +5,10 @@ import * as git from '../../src/util/gitUtils'
 import { getToken } from '../helpers/token'
 
 describe('pr-update/gitUtil', () => {
+  beforeAll(async () => {
+    process.env['GITHUB_REPOSITORY'] = 'k3rnels-actions/pr-update'
+  })
+
   it('test branchExists missing', async () => {
     const changes = await git.branchExists('missing')
     expect(changes).toBeFalsy()
