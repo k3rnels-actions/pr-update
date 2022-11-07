@@ -8,10 +8,6 @@ const octokit = github.getOctokit(getToken())
 const pr = new PrUtils(octokit)
 
 describe('pr-update/prUtil', () => {
-  beforeAll(async () => {
-    process.env['GITHUB_REPOSITORY'] = 'k3rnels-actions/pr-update'
-  })
-
   it('test branchExists missing', async () => {
     const prNr = await pr.getPrNumber('main', 'test/missing')
     expect(prNr).toBeUndefined()
@@ -19,6 +15,7 @@ describe('pr-update/prUtil', () => {
 
   it('test branchExists present', async () => {
     const prNr = await pr.getPrNumber('main', 'test/pr')
-    expect(prNr).toBe(6)
+    const expectedPrNr = process.env['TEST_PR_UTIL_EXPECTED_PR_NUMBER']
+    expect(prNr).toBe(expectedPrNr)
   })
 })
