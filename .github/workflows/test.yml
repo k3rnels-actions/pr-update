@@ -21,9 +21,8 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Fetch ENV from .env.ci
-        uses: ./.github/actions/dotenv-action
-        with:
-          path: .env.ci
+        run: |-
+          cat .env.ci >> $GITHUB_ENV
       - name: Run all NPM targets
         run: npm run all
         env:
