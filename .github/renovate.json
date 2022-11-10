@@ -1,12 +1,24 @@
 {
   "extends": [
-    "config:base"
+    "config:base",
+    ":enableVulnerabilityAlertsWithLabel(security)",
+    ":semanticCommits",
+    ":semanticCommitScope(deps)",
+    ":timezone(Etc/UTC)",
+    "group:testNonMajor",
+    "group:monorepos",
+    "helpers:pinGitHubActionDigests"
   ],
   "addLabels": ["dependencies"],
+  "npm": {
+    "stabilityDays": 7
+  },
+  "rangeStrategy": "pin",
   "packageRules": [
     {
       "matchManagers": ["github-actions"],
-      "addLabels": ["github_actions"]
+      "addLabels": ["github_actions"],
+      "groupName": "ci-dependencies"
     },
     {
       "matchManagers": ["npm"],
@@ -19,12 +31,6 @@
     {
       "matchDepTypes": ["dependencies"],
       "groupName": "dependencies"
-    },
-    {
-      "matchDepTypes": ["action"],
-      "groupName": "ci-dependencies"
     }
-  ],
-  "rangeStrategy": "pin",
-  "timezone": "Etc/UTC"
+  ]
 }
