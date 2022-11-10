@@ -19,6 +19,21 @@ NOTE: This Action took inspiration of several other PR creating and updating Act
 [#action-io]
 == Action I/O
 
+[NOTE]
+====
+It is recommended that you lock down the permissions granted to the default `GITHUB_TOKEN` within any workflow you have in your repositories.
+
+This action will need at least these permissions set on the workflow it runs in:
+
+[source,yaml]
+----
+permissions:
+  contents: read
+  pull-requests: write
+----
+
+====
+
 === Action Inputs
 
 [cols="1,^1,4"]
