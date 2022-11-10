@@ -20,9 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # v3.1.0
       - name: Set Node
-        uses: actions/setup-node@v3.5.1
+        uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # v3.5.1
         with:
           node-version: 16.x
           cache: 'npm'
@@ -36,7 +36,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3.1.1
+        uses: actions/upload-artifact@83fd05a356d7e2593de66fc9913b3002723633cb # v3.1.1
         with:
           retention-days: 15
           name: new-dist
@@ -48,9 +48,9 @@ jobs:
       - build
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # v3.1.0
       - name: Download Artifacts
-        uses: actions/download-artifact@v3.0.1
+        uses: actions/download-artifact@9782bd6a9848b53b110e712e20e42d89988822b7 # v3.0.1
         with:
           name: new-dist
       - name: Set environment variables
@@ -69,9 +69,9 @@ jobs:
       - build
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3.0.2
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # v3.1.0
       - name: Download Artifacts
-        uses: actions/download-artifact@v3.0.1
+        uses: actions/download-artifact@9782bd6a9848b53b110e712e20e42d89988822b7 # v3.0.1
         with:
           name: new-dist
       - name: Set environment variables
