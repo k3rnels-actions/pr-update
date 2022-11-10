@@ -5,6 +5,11 @@ on:
   schedule:
     - cron: '0 10 1 * *'
 
+permissions:
+  contents: read
+  issues: write
+
+
 jobs:
   sync-labels:
     runs-on: ubuntu-latest

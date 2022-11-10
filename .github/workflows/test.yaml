@@ -5,7 +5,15 @@ on:
     branches:
       - main
       - 'releases/*'
+    paths:
+      - src/**
+      - __test__/**
+      - .github/workflows/test.yaml
   workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   build:
