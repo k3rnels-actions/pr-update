@@ -20,6 +20,9 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm install
+      - name: Fetch ENV from .env.ci
+        run: |-
+          cat .env.ci >> $GITHUB_ENV
       - name: Run all NPM targets
         run: npm run all
         env:
@@ -51,3 +54,26 @@ jobs:
           pr_title: Test PR
           pr_source: test/pr
           pr_body: ${{ env.DATE }}
+
+  test-extended:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3.0.2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3.0.1
+        with:
+          name: new-dist
+      - name: Set environment variables
+        run: echo "DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
+      - name: Execute test run with body links
+        uses: ./
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pr_title: Test staging to main
+          pr_source: test/staging
+          pr_target: test/main
+          pr_body: "The following changes are going to be merged from staging to main (${{ env.DATE }}):"
+          pr_body_with_links: true

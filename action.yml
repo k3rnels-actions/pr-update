@@ -20,6 +20,9 @@ inputs:
   pr_body:
     required: false
     description: 'The body of the PR to create'
+  pr_body_with_links:
+    required: false
+    description: 'When enabled adds titles and links from PRs that "pr_source" and "pr_target" differ'
   pr_labels:
     required: false
     description: 'A comma separated list of labels to add to the PR'
