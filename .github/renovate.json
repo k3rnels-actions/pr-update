@@ -31,6 +31,15 @@
     {
       "matchDepTypes": ["dependencies"],
       "groupName": "dependencies"
+    },
+    {
+      "matchPackageNames": [
+        "@types/node"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
     }
   ]
 }
