@@ -19,7 +19,7 @@ NOTE: This Action took inspiration of several other PR creating and updating Act
 [#action-io]
 == Action I/O
 
-[NOTE]
+[TIP]
 ====
 It is recommended that you lock down the permissions granted to the default `GITHUB_TOKEN` within any workflow you have in your repositories.
 
@@ -72,8 +72,6 @@ permissions:
 |`false`
 |A comma separated list of assignees to add to the PR (e.g. `octocat`)
 |===
-
-IMPORTANT: The `token` used by this action needs to be able to read the GitHub API and access information about the repository you intend to use this Action in as well as be able to create Pull Requests via the GitHub API in that repository. The default `${{ secrets.GITHUB_TOKEN }}` is enough for this purpose.
 
 === Action Outputs
 
