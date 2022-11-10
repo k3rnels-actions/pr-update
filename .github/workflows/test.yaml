@@ -8,6 +8,7 @@ on:
     paths:
       - src/**
       - __test__/**
+      - package*
       - .github/workflows/test.yaml
   workflow_dispatch:
 
