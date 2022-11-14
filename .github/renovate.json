@@ -22,7 +22,10 @@
     },
     {
       "matchManagers": ["npm"],
-      "addLabels": ["npm"]
+      "addLabels": ["npm"],
+      "extends": [
+        "schedule:weekly"
+      ]
     },
     {
       "matchDepTypes": ["devDependencies", "build-dependencies"],
