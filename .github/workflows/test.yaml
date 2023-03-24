@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0
+        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
       - name: Set Node
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
         with:
@@ -49,7 +49,7 @@ jobs:
       - build
     steps:
       - name: Checkout repository
-        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0
+        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
       - name: Download Artifacts
         uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
@@ -70,7 +70,7 @@ jobs:
       - build
     steps:
       - name: Checkout repository
-        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0
+        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
       - name: Download Artifacts
         uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
