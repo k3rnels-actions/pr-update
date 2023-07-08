@@ -69,7 +69,7 @@ function run() {
             core.startGroup('PR');
             const body = input.prBodyWithLinks === true
                 ? yield bodyUtils.withLinks(input.prSource, input.prTarget, input.prBody)
-                : input.prBody;
+                : (input.prBody || undefined);
             if (pullRequestNr) {
                 core.info('♻️ Update existing PR');
                 const pull = yield pr.updatePr(pullRequestNr, input.prTitle, body, input.prLabels, input.prAssignees);
