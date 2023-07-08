@@ -1,11 +1,17 @@
 import * as github from '@actions/github'
 
-import {Octokit, Repo} from '../model/types'
-import {execWithCode} from './execUtils'
+import { Octokit, Repo } from '../model/types'
 
-export async function branchExists(branchName: string): Promise<boolean> {
-  const retCode = await execWithCode(`git ls-remote --exit-code --heads origin "${branchName}"`)
-  return 0 === retCode
+export async function branchExists(octokit: Octokit, branchName: string): Promise<boolean> {
+  try {
+    const status = (await octokit.rest.git.getRef({
+      ...github.context.repo,
+      ref: `heads/${branchName}`
+    })).status
+    return status === 200
+  } catch {
+    return false
+  }
 }
 
 export async function getTargetBranch(inputBranch: string, octokit: Octokit): Promise<string> {
