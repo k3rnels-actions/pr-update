@@ -33,7 +33,7 @@ async function run(): Promise<void> {
     const body =
       input.prBodyWithLinks === true
         ? await bodyUtils.withLinks(input.prSource, input.prTarget, input.prBody)
-        : (input.prBody || undefined)
+        : input.prBody || undefined
     if (pullRequestNr) {
       core.info('♻️ Update existing PR')
       const pull = await pr.updatePr(
