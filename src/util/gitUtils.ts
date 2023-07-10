@@ -1,13 +1,15 @@
 import * as github from '@actions/github'
 
-import { Octokit, Repo } from '../model/types'
+import {Octokit, Repo} from '../model/types'
 
 export async function branchExists(octokit: Octokit, branchName: string): Promise<boolean> {
   try {
-    const status = (await octokit.rest.git.getRef({
-      ...github.context.repo,
-      ref: `heads/${branchName}`
-    })).status
+    const status = (
+      await octokit.rest.git.getRef({
+        ...github.context.repo,
+        ref: `heads/${branchName}`
+      })
+    ).status
     return status === 200
   } catch {
     return false
