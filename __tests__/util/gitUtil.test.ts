@@ -6,12 +6,12 @@ import { getToken } from '../helpers/token'
 
 describe('pr-update/gitUtil', () => {
   it('test branchExists missing', async () => {
-    const changes = await git.branchExists('missing')
+    const changes = await git.branchExists(octokit, 'missing')
     expect(changes).toBeFalsy()
   })
 
   it('test branchExists present', async () => {
-    const changes = await git.branchExists('main')
+    const changes = await git.branchExists(octokit, 'main')
     expect(changes).toBeTruthy()
   })
 
