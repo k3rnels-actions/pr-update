@@ -16,11 +16,11 @@ async function run(): Promise<void> {
 
     core.startGroup('Checks')
     core.info('🔍 Checking if branches exists')
-    const srcBranchExists = await git.branchExists(input.prSource)
+    const srcBranchExists = await git.branchExists(octokit, input.prSource)
     if (!srcBranchExists) {
       core.setFailed(`💥 Source branch '${input.prSource}' does not exist!`)
     }
-    const tgtBranchExists = await git.branchExists(tgtBranch)
+    const tgtBranchExists = await git.branchExists(octokit, tgtBranch)
     if (!tgtBranchExists) {
       core.setFailed(`💥 Target branch '${tgtBranch}' does not exist!`)
     }
